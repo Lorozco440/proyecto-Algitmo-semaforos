@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación de Carrera con Semáforo</title>
+    <style>
+        body {
+            background-color: #7cfc00; /* Color de fondo simulando pasto */
+            font-family: Arial, sans-serif;
+            text-align: center; /* Centrar el texto */
+        }
+        .pista {
+            width: 100%;
+            height: 100px;
+            background-color: black;
+            border: 1px solid black;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .linea {
+            width: 100%;
+            height: 10px;
+            background: repeating-linear-gradient(
+                to right,
+                white,
+                white 10px,
+                black 10px,
+                black 20px
+            );
+            position: absolute;
+            top: 45px;
+        }
+        .vehiculo {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 25px;
+        }
+        .semaforo {
+            width: 100px;
+            height: 300px;
+            background-color: black;
+            border-radius: 20px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .luz {
+            width: 80px;
+            height: 80px;
+            background-color: grey;
+            border-radius: 50%;
+        }
+        .rojo {
+            background-color: red;
+        }
+        .amarillo {
+            background-color: yellow;
+        }
+        .verde {
+            background-color: green;
+        }
+        .bandera {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simulación de Carrera con Semáforo</h1>
+	<h2>Luis Armando Orozco Cifuentes 1190-22-102</h2>
+    <div class="semaforo">
+        <div id="rojo" class="luz"></div>
+        <div id="amarillo" class="luz"></div>
+        <div id="verde" class="luz"></div>
+<img src="bandera.png" class="bandera" alt="Bandera">
+    </div>
+       <div class="pista" id="pista1">
+        <div class="linea"></div>
+        <img id="vehiculo1" class="vehiculo" src="carrito_rojo.png" alt="Vehículo Rojo">
+        
+    </div>
+    <div class="pista" id="pista2">
+        <div class="linea"></div>
+        <img id="vehiculo2" class="vehiculo" src="carrito_azul.png" alt="Vehículo Azul">
+    </div>
+    
+    <div class="pista" id="pista3">
+        <div class="linea"></div>
+        <img id="vehiculo3" class="vehiculo" src="carrito_verde.png" alt="Vehículo Verde">
+    </div>
+    <button onclick="iniciarSemaforo()">Iniciar Carrera</button>
+    <button onclick="reiniciarCarrera()">Reiniciar Carrera</button>
+    <h2 id="ganador"></h2>
+
+    <script>
+        let estadoSemaforo = 0;
+        let terminado = 0;
+        let intervaloSemaforo;
+
+        function cambiarSemaforo() {
+            document.getElementById('rojo').classList.remove('rojo');
+            document.getElementById('amarillo').classList.remove('amarillo');
+            document.getElementById('verde').classList.remove('verde');
+
+            if (estadoSemaforo === 0) {
+                document.getElementById('rojo').classList.add('rojo');
+                estadoSemaforo = 1;
+            } else if (estadoSemaforo === 1) {
+                document.getElementById('amarillo').classList.add('amarillo');
+                estadoSemaforo = 2;
+            } else {
+                document.getElementById('verde').classList.add('verde');
+                clearInterval(intervaloSemaforo);
+                iniciarCarrera();
+            }
+        }
+
+        function moverVehiculo(vehiculo, pista, nombre) {
+            let posicion = 0;
+            const intervalo = setInterval(() => {
+                if (posicion >= pista.offsetWidth - vehiculo.offsetWidth) {
+                    clearInterval(intervalo);
+                    terminado++;
+                    if (terminado === 1) {
+                        document.getElementById('ganador').innerText = `¡El ganador es ${nombre}!`;
+                    }
+                } else {
+                    posicion += Math.random() * 10;
+                    vehiculo.style.left = posicion + 'px';
+                }
+            }, 100);
+        }
+
+        function iniciarCarrera() {
+            moverVehiculo(document.getElementById('vehiculo1'), document.getElementById('pista1'), 'Vehículo 1 (Rojo)');
+            moverVehiculo(document.getElementById('vehiculo2'), document.getElementById('pista2'), 'Vehículo 2 (Azul)');
+            moverVehiculo(document.getElementById('vehiculo3'), document.getElementById('pista3'), 'Vehículo 3 (Verde)');
+        }
+
+        function iniciarSemaforo() {
+            terminado = 0;
+            document.getElementById('ganador').innerText = '';
+            intervaloSemaforo = setInterval(cambiarSemaforo, 2000);
+        }
+
+        function reiniciarCarrera() {
+            clearInterval(intervaloSemaforo);
+            document.getElementById('vehiculo1').style.left = '0px';
+            document.getElementById('vehiculo2').style.left = '0px';
+            document.getElementById('vehiculo3').style.left = '0px';
+            document.getElementById('ganador').innerText = '';
+            estadoSemaforo = 0;
+            cambiarSemaforo();
+        }
+    </script>
+</body>
+</html>
+
+
+

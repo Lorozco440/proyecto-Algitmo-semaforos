@@ -1,0 +1,40 @@
+body: El fondo es verde para simular pasto y el texto está centrado.
+.pista: Define las pistas de carrera con fondo negro y líneas blancas entrecortadas.
+.vehiculo: Define la posición y tamaño de los vehículos.
+.semaforo: Define el semáforo con luces de colores.
+.bandera: Define la posición y tamaño de la bandera al final de la pista 1.
+
+
+
+Funcionalidad JavaScript
+estadoSemaforo: Controla el estado del semáforo (rojo, amarillo, verde).
+terminado: Cuenta cuántos vehículos han terminado la carrera.
+intervaloSemaforo: Almacena el intervalo del semáforo.
+
+
+Función cambiarSemaforo
+Cambia el color del semáforo cada 2 segundos.
+Cuando el semáforo está en verde, se detiene el intervalo y se inicia la carrera.
+
+
+Función moverVehiculo:
+Mueve el vehículo a una velocidad aleatoria.
+Cuando un vehículo llega al final de la pista, se detiene y se muestra el ganador.
+
+
+Función iniciarCarrera:
+Inicia el movimiento de los tres vehículos.
+
+
+Función iniciarSemaforo:
+Reinicia el contador de vehículos terminados y el texto del ganador.
+Inicia el intervalo del semáforo.
+
+
+Función reiniciarCarrera:
+Reinicia la posición de los vehículos y el semáforo.
+Limpia el texto del ganador.
+
+Este código simula una carrera de vehículos que comienza cuando el semáforo se pone en verde. Los vehículos se mueven a velocidades aleatorias y el primero en llegar al final de su pista se declara ganador. Además, se ha añadido una bandera al final de la pista 1 para indicar la línea de meta.
+
+demostrar conceptos básicos de concurrencia y asincronía en JavaScript.
